@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios"; //if exporting default you can use any name like instance from './axios'
 import "./Row.css";
-import YouTube from "react-youtube";
-import movieTrailer from "movie-trailer";
+// import YouTube from "react-youtube";
+// import movieTrailer from "movie-trailer";
 
 const base_url = "https://image.tmdb.org/t/p/original";
 
@@ -38,24 +38,24 @@ function Row({ title, fetchUrl, isLargeRow }) /*using props*/ {
     },
   };
 
-  const handleClick = (movie) => {
-    if (trailerUrl) {
-      /* if the trailerUrl is already open then close it when we click on the movie poster */
-      setTrailerUrl(""); /* sets the trailerUrl as empty */
-    } else {
-      /* not all the trailers wil lbe loaded because of the incompatibility of TMDB and Youtube/netflix  */
-      movieTrailer(movie?.name || "")
-        /* '' is because sometimes name is undefined */
-        .then((url) => {
-          /* youtube.com/watch?v=XtMThy8QKqU in the url, we need the value of v. like here v=XtMThy8QKqU */
-          const urlParams = new URLSearchParams(new URL(url).search);
-          /* this will give us everything after '?' and wrapping new URL(url).search will allow us to get 'get */
-          console.log("urlParamsn= " + urlParams);
-          setTrailerUrl(urlParams.get("v")); /* v is the video ID */
-        })
-        .catch((error) => console.log(error));
-    }
-  };
+  // const handleClick = (movie) => {
+  //   if (trailerUrl) {
+  //     /* if the trailerUrl is already open then close it when we click on the movie poster */
+  //     setTrailerUrl(""); /* sets the trailerUrl as empty */
+  //   } else {
+  //     /* not all the trailers wil lbe loaded because of the incompatibility of TMDB and Youtube/netflix  */
+  //     movieTrailer(movie?.name || "")
+  //       /* '' is because sometimes name is undefined */
+  //       .then((url) => {
+  //         /* youtube.com/watch?v=XtMThy8QKqU in the url, we need the value of v. like here v=XtMThy8QKqU */
+  //         const urlParams = new URLSearchParams(new URL(url).search);
+  //         /* this will give us everything after '?' and wrapping new URL(url).search will allow us to get 'get */
+  //         console.log("urlParamsn= " + urlParams);
+  //         setTrailerUrl(urlParams.get("v")); /* v is the video ID */
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
+  // };
 
   return (
     <div className="row">
@@ -64,7 +64,7 @@ function Row({ title, fetchUrl, isLargeRow }) /*using props*/ {
         {/*several row posters*/}
         {movies.map((movie) => (
           <img
-            onClick={() => handleClick(movie)}
+           // onClick={() => handleClick(movie)}
             key={movie.id}
             /*key will render the selected item and not the whole page for efficiency using unique ID*/
             className={`row_poster ${isLargeRow && "row_posterLarge"}`}
@@ -76,7 +76,7 @@ function Row({ title, fetchUrl, isLargeRow }) /*using props*/ {
           />
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+     {/* {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />} */}
     </div>
   );
 }
